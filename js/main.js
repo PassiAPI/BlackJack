@@ -26,18 +26,26 @@ for(var i = 1;i<5;i++){
 
 var secondcard = false;
 var endcard = false;
+var enddealer = 0;
 var ass = false;
 var end = 0;
 var morecards = 0;
+var morecardsdealer = 0;
+
 var final = false;
 
 function reset() {
   ass = false;
   end = 0;
+  enddealer = 0;
   morecards = 0;
+  morecardsdealer = 0;
+
   document.getElementById("Info").innerText = "";
   document.getElementById("getcard").innerText = "1. Karte";
   final = false
+  document.getElementById("DealerPoints").innerText = "Dealer Points : "+enddealer
+
 
 }
 
@@ -55,6 +63,12 @@ function getcard() {
       for (var i = 1; i<morecards+1; i++){
         document.getElementById(i).remove()
       }
+      if(morecardsdealer > 0){
+        for (var e = 0; e<morecardsdealer+1; e++){
+          document.getElementById(e).remove()
+        }
+      }
+
       reset();
 
       console.log("Reset 1")
@@ -152,9 +166,9 @@ function getcard() {
 
 
 function hold() {
-  var morecardsdealer = 0;
+
   var assdealerdealer = false;
-  var enddealer = 0;
+
 
 
 
@@ -162,7 +176,7 @@ function hold() {
   var imgcarddealer = document.createElement("img");
   imgcarddealer.weight = "240.25‬";
   imgcarddealer.height = "264";
-  imgcarddealer.id = morecards;
+  imgcarddealer.id = morecardsdealer;
   imgcarddealer.src = "./pics/"+"green_back"+".png";
   document.body.appendChild(imgcarddealer);
 
@@ -178,7 +192,7 @@ function hold() {
       var imgcardx = document.createElement("img");
       imgcardx.weight = "240.25‬";
       imgcardx.height = "264";
-      imgcardx.id = morecards;
+      imgcardx.id = morecardsdealer;
       imgcardx.src = "./pics/"+cardx+".png";
       document.body.appendChild(imgcardx);
 
@@ -195,7 +209,7 @@ function hold() {
           } else {
             cardvaluex = "11";
             console.log("assdealer Abfrage")
-            if (morecards < 3) {
+            if (morecardsdealer < 3) {
               assdealer = true
 
               console.log("assdealer True")
@@ -235,16 +249,18 @@ function hold() {
             console.log(end);
             assdealer = false
 
+
           }
         }
+
+
+        document.getElementById("DealerPoints").innerText = "Dealer Points : "+enddealer
 
       }
 
 
   console.log(enddealer)
   document.getElementById("DealerPoints").innerText = "Dealer Points : "+enddealer
-
-
 
 
 
