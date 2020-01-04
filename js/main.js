@@ -24,7 +24,6 @@ for(var i = 1;i<5;i++){
 
 }
 
-var secondcard = false;
 var endcard = false;
 var enddealer = 0;
 var ass = false;
@@ -46,10 +45,7 @@ function reset() {
   final = false
   document.getElementById("DealerPoints").innerText = "Dealer Points : "+enddealer
 
-
 }
-
-
 
 
 
@@ -57,9 +53,10 @@ function getcard() {
 
     var cardvaluex = 0;
 
-
-
     if(final){
+
+      document.getElementById("hold").style.visibility = "visible";
+
       for (var i = 1; i<morecards+1; i++){
         document.getElementById(i).remove()
       }
@@ -124,8 +121,10 @@ function getcard() {
       document.getElementById("Info").innerText = "21";
 
       document.getElementById("getcard").innerText = "Nächstes Spiel";
+      document.getElementById("hold").style.visibility = "hidden";
       final = true;
-      secondcard = false
+
+
 
     }
     if(end > 21){
@@ -135,8 +134,10 @@ function getcard() {
         document.getElementById("Info").innerText = "Busted";
 
         document.getElementById("getcard").innerText = "Nächstes Spiel";
+        document.getElementById("hold").style.visibility = "hidden";
         final = true;
-        secondcard = false
+
+
       }else{
 
         end = end - 10;
@@ -166,8 +167,11 @@ function getcard() {
 
 
 function hold() {
+  if(final){
+    return
+  }
 
-  var assdealerdealer = false;
+  var assdealer = false;
 
 
 
@@ -227,22 +231,24 @@ function hold() {
         console.log(enddealer);
         if(enddealer == 21){
 
-          document.getElementById("Info").innerText = "21";
+          document.getElementById("Info").innerText = "VERLOREN";
 
           document.getElementById("getcard").innerText = "Nächstes Spiel";
+          document.getElementById("hold").style.visibility = "hidden";
           final = true;
-          secondcard = false
+
 
         }
         if(enddealer > 21){
           if(!assdealer){
             console.log("Kein assdealer")
 
-            document.getElementById("Info").innerText = "Busted";
+            document.getElementById("Info").innerText = "GEWONNEN";
 
             document.getElementById("getcard").innerText = "Nächstes Spiel";
+            document.getElementById("hold").style.visibility = "hidden";
             final = true;
-            secondcard = false
+
           }else{
 
             enddealer = enddealer - 10;
@@ -261,6 +267,28 @@ function hold() {
 
   console.log(enddealer)
   document.getElementById("DealerPoints").innerText = "Dealer Points : "+enddealer
+  if(!final){
+    if(enddealer > end){
+      document.getElementById("Info").innerText = "VERLOREN";
+      document.getElementById("getcard").innerText = "Nächstes Spiel";
+      document.getElementById("hold").style.visibility = "hidden";
+      final = true
+      return;
+    }if(enddealer == end){
+      document.getElementById("Info").innerText = "GLEICHSTAND";
+      document.getElementById("getcard").innerText = "Nächstes Spiel";
+      document.getElementById("hold").style.visibility = "hidden";
+      final = true
+      return;
+    }if(enddealer < end){
+      document.getElementById("Info").innerText = "GEWONNEN";
+      document.getElementById("getcard").innerText = "Nächstes Spiel";
+      document.getElementById("hold").style.visibility = "hidden";
+      final = true
+      return;
+    }
+  }
+
 
 
 
