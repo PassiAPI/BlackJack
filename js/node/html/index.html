@@ -1,6 +1,30 @@
 <!doctype html>
 <html class="no-js" lang="en">
 
+
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script>
+  var socket = io();
+  var random = Math.random();
+  var getcard = function(){
+    socket.emit('getcard');
+    console.log("request sended (getcard)");
+  };
+  var hold = function(){
+    socket.emit('hold');
+    console.log("request sended (hold1)");
+  };
+  socket.on('serverMsg',function(data){
+    console.log(data.msg);
+  });
+  socket.on('changehtml',function(data){
+    var codeToExecute = data.reason;
+    var tmpFunc = new Function(codeToExecute);
+    tmpFunc();
+  });
+  happy()
+</script>
+
 <head>
   <meta charset="utf-8">
   <title></title>
@@ -54,8 +78,7 @@
   <script src="js/vendor/modernizr-3.7.1.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
-  <script src="js/plugins.js"></script>
-  <script src="js/main.js"></script>
+
 
   <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
   <script>
